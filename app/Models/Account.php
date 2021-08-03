@@ -23,6 +23,10 @@ class Account extends Model
     // protected $hidden = [];
     // protected $dates = [];
 
+    public $casts = [
+        'owners' => 'array'
+    ];
+
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
@@ -34,16 +38,16 @@ class Account extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    public function owners()
-    {
-        return $this->belongsToMany(Owner::class, 'account_owner')
-            ->using(AccountOwner::class)
-            ->withTimestamps();
-    }
+    // public function owners()
+    // {
+    //     return $this->belongsToMany(Owner::class, 'account_owner')
+    //         ->using(AccountOwner::class)
+    //         ->withTimestamps();
+    // }
 
     public function industry()
     {
-        return $this->belongsTo(Iso::class, 'iso_id');
+        return $this->belongsTo(Sic::class, 'sic_id');
     }
 
     /*

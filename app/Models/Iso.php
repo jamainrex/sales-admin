@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
+use Propaganistas\LaravelPhone\Casts\RawPhoneNumberCast;
 
 class Iso extends Model
 {
@@ -23,21 +24,31 @@ class Iso extends Model
     // protected $hidden = [];
     // protected $dates = [];
 
+    public $casts = [
+        'contact_number' => RawPhoneNumberCast::class.':US',
+        'emails' => 'array'
+    ];
+
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+    public function syncEmails()
+    {
+        //$this->emails->delete();
+        //$this->
+    }
 
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    public function emails()
-    {
-        return $this->hasMany(IsoEmail::class);
-    }
+    // public function emails()
+    // {
+    //     return $this->hasMany(IsoEmail::class);
+    // }
 
     /*
     |--------------------------------------------------------------------------
@@ -50,10 +61,21 @@ class Iso extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
+    
 
     /*
     |--------------------------------------------------------------------------
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ( $iso )
+            {
+                $iso->syncEmails();
+            }
+        );
+    }
 }

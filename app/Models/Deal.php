@@ -23,6 +23,16 @@ class Deal extends Model
     // protected $hidden = [];
     // protected $dates = [];
 
+    public static function getSalesStages()
+    {
+        return [
+            'new deal' => 'New Deal', 
+            'missing info'=> 'Missing Info', 
+            'deal won' => 'Deal Won', 
+            'deal lost' => 'Deal Lost'
+        ];
+    }
+
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
@@ -31,7 +41,7 @@ class Deal extends Model
     public function setName()
     {
         $dealCount = Deal::where('account_id', $this->account_id)->count();
-        $this->name = $this->account->name . ' ' . ( $dealCount + 1 );
+        $this->name = $this->account->business_name . ' ' . ( $dealCount + 1 );
     }
 
     /*
@@ -72,7 +82,7 @@ class Deal extends Model
 
         static::creating(function ( $deal )
             {
-                $user->setName();
+                $deal->setName();
             }
         );
     }

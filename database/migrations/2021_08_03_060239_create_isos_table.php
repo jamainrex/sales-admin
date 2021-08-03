@@ -17,7 +17,8 @@ class CreateIsosTable extends Migration
             $table->id();
             $table->string('business_name', 50);
             $table->string('contact_name', 50);
-            $table->string('contact_number', 20);
+            $table->unsignedBigInteger('contact_number');
+            $table->json('emails');
             $table->timestamps();
         });
     }

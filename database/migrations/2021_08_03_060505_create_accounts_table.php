@@ -16,12 +16,13 @@ class CreateAccountsTable extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
             $table->string('business_name', 100);
-            $table->unsignedBigInteger('iso_id');
+            $table->unsignedBigInteger('sic_id');
+            $table->json('owners');
             $table->timestamps();
 
-            $table->foreign( 'iso_id' )
+            $table->foreign( 'sic_id' )
                     ->references( 'id' )
-                    ->on( 'isos' )
+                    ->on( 'sics' )
                     ->onDelete( 'cascade' );
         });
     }

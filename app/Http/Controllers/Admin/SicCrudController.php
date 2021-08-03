@@ -28,7 +28,7 @@ class SicCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Sic::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/sic');
-        CRUD::setEntityNameStrings('sic', 'sics');
+        CRUD::setEntityNameStrings('sic', 'sic');
     }
 
     /**
@@ -40,7 +40,7 @@ class SicCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::setFromDb(); // columns
-
+ 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');

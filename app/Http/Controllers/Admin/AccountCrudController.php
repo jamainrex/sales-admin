@@ -40,7 +40,25 @@ class AccountCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::setFromDb(); // columns
+        $this->crud->removeColumns(['owners', 'sic_id']);
 
+        $this->crud->addColumn([
+            'name' => 'sic_id', // The db column name
+            'label' => "SIC", // Table column heading
+            'type'         => 'relationship',
+            // OPTIONAL
+             'entity'    => 'industry', // the method that defines the relationship in your Model
+             'attribute' => 'description', // foreign key attribute that is shown to user
+             'model'     => App\Models\Sic::class, // foreign key model
+          ]);
+        $this->crud->addColumn([
+            'name'        => 'owners', // The db column name
+            'label'       => 'Owners', // Table column heading
+            'type'        => 'multidimensional_array',
+            'visible_key' => 'name' // The key to the attribute you would like shown in the enumeration
+        ]);
+
+        
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
@@ -69,7 +87,7 @@ class AccountCrudController extends CrudController
         $this->crud->addField([  // Select
             'label'     => "Industry",
             'type'      => 'select',
-            'name'      => 'iso_id', // the db column for the foreign key
+            'name'      => 'sic_id', // the db column for the foreign key
          
             // optional 
             // 'entity' should point to the method that defines the relationship in your Model
@@ -77,8 +95,8 @@ class AccountCrudController extends CrudController
             'entity'    => 'industry', 
          
             // optional - manually specify the related model and attribute
-            'model'     => "App\Models\Iso", // related model
-            'attribute' => 'business_name', // foreign key attribute that is shown to user
+            'model'     => "App\Models\Sic", // related model
+            'attribute' => 'description', // foreign key attribute that is shown to user
          
             // optional - force the related options to be a custom query, instead of all();
             //'options'   => (function ($query) {
@@ -105,7 +123,7 @@ class AccountCrudController extends CrudController
                 ],
                 [
                     'name'    => 'birthdate',
-                    'type'    => 'text',
+                    'type'  => 'date_picker',
                     'label'   => 'Date of Birth',
                     'wrapper' => ['class' => 'form-group col-md-4'],
                 ],
