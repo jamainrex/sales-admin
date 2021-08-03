@@ -23,7 +23,7 @@ class CreateIsoEmailsTable extends Migration
 
             $table->foreign( 'iso_id' )
                     ->references( 'id' )
-                    ->on( 'iso' )
+                    ->on( 'isos' )
                     ->onDelete( 'cascade' );
         });
     }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSicTable extends Migration
+class CreateOwnersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateSicTable extends Migration
      */
     public function up()
     {
-        Schema::create('sic', function (Blueprint $table) {
+        Schema::create('owners', function (Blueprint $table) {
             $table->id();
-            $table->integer('code');
-            $table->string('description', 255);
+            $table->string('name', 30);
+            $table->string('title', 30);
+            $table->date('birthdate');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateSicTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sic');
+        Schema::dropIfExists('owners');
     }
 }

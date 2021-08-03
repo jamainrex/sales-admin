@@ -17,7 +17,7 @@ class CreateDealsTable extends Migration
             $table->id();
             $table->date('submission_date');
             $table->unsignedBigInteger('account_id');
-            $table->string('deal_name', 100);
+            $table->string('name', 100);
             $table->unsignedBigInteger('iso_id');
             $table->enum('sales_stage', ['new deal', 'missing info', 'deal won', 'deal lost']);
             $table->timestamps();
@@ -33,7 +33,7 @@ class CreateDealsTable extends Migration
 
             $table->foreign( 'iso_id' )
                     ->references( 'id' )
-                    ->on( 'iso' )
+                    ->on( 'isos' )
                     ->onDelete( 'cascade' );
         });
     }

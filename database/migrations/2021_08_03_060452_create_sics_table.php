@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateIsoTable extends Migration
+class CreateSicsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateIsoTable extends Migration
      */
     public function up()
     {
-        Schema::create('iso', function (Blueprint $table) {
+        Schema::create('sics', function (Blueprint $table) {
             $table->id();
-            $table->string('business_name', 50);
-            $table->string('contact_name', 50);
-            $table->integer('contact_number');
-            $table->json('emails');
+            $table->integer('code');
+            $table->string('description', 255);
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateIsoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('iso');
+        Schema::dropIfExists('sics');
     }
 }
