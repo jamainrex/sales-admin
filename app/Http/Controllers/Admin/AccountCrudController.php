@@ -58,7 +58,66 @@ class AccountCrudController extends CrudController
     {
         CRUD::setValidation(AccountRequest::class);
 
-        CRUD::setFromDb(); // fields
+        //CRUD::setFromDb(); // fields
+
+        $this->crud->addField([   // Text
+            'name'  => 'business_name',
+            'label' => "Business Name",
+            'type'  => 'text',
+
+             ]);
+        $this->crud->addField([  // Select
+            'label'     => "Industry",
+            'type'      => 'select',
+            'name'      => 'iso_id', // the db column for the foreign key
+         
+            // optional 
+            // 'entity' should point to the method that defines the relationship in your Model
+            // defining entity will make Backpack guess 'model' and 'attribute'
+            'entity'    => 'industry', 
+         
+            // optional - manually specify the related model and attribute
+            'model'     => "App\Models\Iso", // related model
+            'attribute' => 'business_name', // foreign key attribute that is shown to user
+         
+            // optional - force the related options to be a custom query, instead of all();
+            //'options'   => (function ($query) {
+             //    return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
+             //}), //  you can use this to filter the results show in the select
+            ]);
+
+        $this->crud->addField([   // repeatable
+            'name'  => 'owners',
+            'label' => 'Owners',
+            'type'  => 'repeatable',
+            'fields' => [
+                [
+                    'name'    => 'name',
+                    'type'    => 'text',
+                    'label'   => 'Name',
+                    'wrapper' => ['class' => 'form-group col-md-4'],
+                ],
+                [
+                    'name'    => 'title',
+                    'type'    => 'text',
+                    'label'   => 'Title',
+                    'wrapper' => ['class' => 'form-group col-md-4'],
+                ],
+                [
+                    'name'    => 'birthdate',
+                    'type'    => 'text',
+                    'label'   => 'Date of Birth',
+                    'wrapper' => ['class' => 'form-group col-md-4'],
+                ],
+            ],
+        
+            // optional
+            'new_item_label'  => 'Add Owner', // customize the text of the button
+            //'init_rows' => 2, // number of empty rows to be initialized, by default 1
+            //'min_rows' => 2, // minimum rows allowed, when reached the "delete" buttons will be hidden
+            //'max_rows' => 2, // maximum rows allowed, when reached the "new item" button will be hidden
+        
+        ]);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

@@ -41,6 +41,11 @@ class Account extends Model
             ->withTimestamps();
     }
 
+    public function industry()
+    {
+        return $this->belongsTo(Iso::class, 'iso_id');
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES
