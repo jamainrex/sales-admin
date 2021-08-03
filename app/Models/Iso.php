@@ -55,6 +55,10 @@ class Iso extends Model
     | SCOPES
     |--------------------------------------------------------------------------
     */
+    public function setContactNumberAttribute($value)
+    {
+        $this->attributes['contact_number'] = trim( str_replace("-", "", $value) );
+    }
 
     /*
     |--------------------------------------------------------------------------
